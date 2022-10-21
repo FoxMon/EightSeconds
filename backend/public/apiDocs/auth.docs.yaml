@@ -1,0 +1,186 @@
+tags:
+  name: AUTH
+  description: 인증 API
+
+paths:
+  /auth/login:
+    post:
+      summary: 로그인
+      tags: [AUTH]
+      responses:
+        '201':
+          description: 로그인 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  status:
+                    type: integer
+                    default: 201
+                  message:
+                    type: string
+                    default: login success
+                  datas:
+                    type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+
+  /auth/register:
+    post:
+      summary: 회원 가입 
+      tags: [AUTH]
+      responses:
+        '201':
+          description: 회원 가입 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  status:
+                    type: integer
+                    default: 201
+                  message:
+                    type: string
+                    default: register success
+                  datas:
+                    type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                nickname:
+                  type: string
+
+  /auth/withdrawal:
+    delete:
+      summary: 회원 탈퇴
+      tags: [AUTH]
+      parameters:
+        - name: jwt
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: 회원 탈퇴 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  status:
+                    type: integer
+                    default: 201
+                  message:
+                    type: string
+                    default: success locking user info
+
+  /auth/email:
+    post:
+      summary: 회원 가입 인증 이메일 요청
+      tags: [AUTH]
+      responses:
+        '201':
+          description: 인증 이메일 전송
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  status:
+                    type: integer
+                    default: 201
+                  message:
+                    type: string
+                    default: email authCode send success
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+    delete:
+      summary: 회원 가입 인증 코드 체크
+      tags: [AUTH]
+      responses:
+        '201':
+          description: 인증
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  status:
+                    type: integer
+                    default: 201
+                  message:
+                    type: string
+                    default: email authCode correct
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                authCode:
+                  type: string
+  /auth/refresh:
+    post:
+      summary: 리프레시 토큰 발급
+      tags: [AUTH]
+      responses:
+        '201':
+          description: 인증
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  status:
+                    type: integer
+                    default: 201
+                  message:
+                    type: string
+                    default: reissue new refresh token
+                  datas:
+                    type: object
+                    default: {newAccessToken: "erikw3lrw3r"}

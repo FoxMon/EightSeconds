@@ -1,0 +1,144 @@
+tags:
+  name: FOLLOW
+  description: 팔로우(친구) API
+
+paths:
+  /follow/list/{userId}:
+    get:
+      summary: 팔로우 리스트 조회
+      tags: [FOLLOW]
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 팔로우 리스트 조회 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  status:
+                    type: integer
+                    default: 200
+                  message:
+                    type: string
+                    default: success Loading FollowList
+                  datas:
+                    type: object
+
+  /follow/{targetId}:
+    get:
+      summary: 팔로우 유무 조회
+      tags: [FOLLOW]
+      parameters:
+        - name: jwt
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: targetId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 팔로우 유무 조회 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  status:
+                    type: integer
+                    default: 200
+                  message:
+                    type: string
+                    default: true => followed, false => unfollowed
+                  datas:
+                    type: object
+
+  /follow:
+    post:
+      summary: 팔로우 추가
+      tags: [FOLLOW]
+      parameters:
+        - name: jwt
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: 팔로우 추가 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  status:
+                    type: integer
+                    default: 201
+                  message:
+                    type: string
+                    default: success adding following
+                  datas:
+                    type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                targetId:
+                  type: string
+
+    delete:
+      summary: 팔로우 삭제 조회
+      tags: [FOLLOW]
+      parameters:
+        - name: jwt
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: 팔로우 유무 삭제 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  status:
+                    type: integer
+                    default: 201
+                  message:
+                    type: string
+                    default: success removing following
+                  datas:
+                    type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                targetId:
+                  type: string

@@ -1,0 +1,502 @@
+tags:
+  name: CHANNEL
+  description: 채널 정보 API
+
+paths:
+  /channels:
+    post:
+      summary: 채널 이미지 변경
+      tags: [CHANNEL]
+      parameters:
+        - name: jwt
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: 채널 이미지 변경 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  status:
+                    type: integer
+                    default: 201
+                  message:
+                    type: string
+                    default: Channel create success
+                  datas:
+                    type: object
+                    default: { _id: channelId }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                location:
+                  type: string
+                  default: 파일 전송 받은 뒤 location
+
+    get:
+      summary: 채널 목록 반환
+      tags: [CHANNEL]
+      parameters:
+        - name: jwt
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: status
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: 채널 목록 반환 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  status:
+                    type: integer
+                    default: 201
+                  message:
+                    type: string
+                    default: Channel list load success
+                  totalPages:
+                    type: integer
+                    default: 10
+                  datas:
+                    type: object
+    
+  /channels/search:
+    get:
+      summary: 채널 검색
+      tags: [CHANNEL]
+      parameters:
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: status
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: keyword
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: filter
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: 채널 검색 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  status:
+                    type: integer
+                    default: 200
+                  message:
+                    type: string
+                    default: Search result load success
+                  totalPages:
+                    type: integer
+                    default: 10
+                  datas:
+                    type: object
+
+  /channels/{channelId}:
+    get:
+      summary: 채널 정보 조회
+      tags: [CHANNEL]
+      parameters:
+        - name: channelId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 채널 정보 조회 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  status:
+                    type: integer
+                    default: 200
+                  message:
+                    type: string
+                    default: Channel info load success
+                  datas:
+                    type: object
+    post:
+      summary: 채널 정보 변경
+      tags: [CHANNEL]
+      parameters:
+        - name: jwt
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: channelId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: 채널 정보 변경 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  status:
+                    type: integer
+                    default: 201
+                  message:
+                    type: string
+                    default: Channel info change success
+                  datas:
+                    type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                location:
+                  type: string
+                  default: 파일 전송 받은 뒤 location
+                newTitle:
+                  type: string
+                newStatus:
+                  type: integer
+                newSpec:
+                  type: string
+                newLocationDist:
+                  type: string
+                newLocationCity:
+                  type: string
+                    
+  /channels/{channelId}/enter:
+    put:
+      summary: 채널 입장 신청
+      tags: [CHANNEL]
+      parameters:
+        - name: jwt
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: channelId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: 채널 입장 신청 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  status:
+                    type: integer
+                    default: 201
+                  message:
+                    type: string
+                    default: Channel enter request success
+                  datas:
+                    type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+    delete:
+      summary: 채널 입장 신청 취소
+      tags: [CHANNEL]
+      parameters:
+        - name: jwt
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: channelId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: 채널 입장 취소 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  status:
+                    type: integer
+                    default: 201
+                  message:
+                    type: string
+                    default: Channel enter cancel success
+                  datas:
+                    type: object  
+
+  /channels/{channelId}/waiting:
+    get:
+      summary: 채널 입장 신청 조회
+      tags: [CHANNEL]
+      parameters:
+        - name: jwt
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: channelId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 채널 입장 신청 조회 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  status:
+                    type: integer
+                    default: 200
+                  message:
+                    type: string
+                    default: Wait list get success
+                  datas:
+                    type: object
+    put:
+      summary: 채널 입장 신청 수락
+      tags: [CHANNEL]
+      parameters:
+        - name: jwt
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: channelId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: 채널 입장 신청 수락 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  status:
+                    type: integer
+                    default: 201
+                  message:
+                    type: string
+                    default: channel enter accept success
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                waitingId:
+                  type: string                
+    delete:
+      summary: 채널 입장 신청 거절
+      tags: [CHANNEL]
+      parameters:
+        - name: jwt
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: channelId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: 채널 입장 신청 거절 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  status:
+                    type: integer
+                    default: 201
+                  message:
+                    type: string
+                    default: channel enter reject success
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                waitingId:
+                  type: string
+ 
+  
+  /channels/{channelId}/main:
+    get:
+      summary: 채널 메인페이지 조회
+      tags: [CHANNEL]
+      parameters:
+        - name: jwt
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: channelId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 채널 메인페이지 조회 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+
+  /channels/{channelId}/leave:
+    delete:
+      summary: 채널 떠나기
+      tags: [CHANNEL]
+      parameters:
+        - name: jwt
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: channelId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: 채널 떠나기 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  status:
+                    type: integer
+                    default: 201
+                  message:
+                    type: string
+                    default: channel leave success
+                  datas:
+                    type: object
+
+  /channels/{channelId}/delete:
+    delete:
+      summary: 채널 삭제
+      tags: [CHANNEL]
+      parameters:
+        - name: jwt
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: channelId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: 채널 삭제 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  status:
+                    type: integer
+                    default: 201
+                  message:
+                    type: string
+                    default: channel delete success
+                  datas:
+                    type: object

@@ -1,0 +1,34 @@
+tags:
+  name: CHAT
+  description: 채팅 정보 API
+
+paths:
+  /chat/log/{roomId}:
+    get:
+      summary: 모든 채팅 로그 조회
+      tags: [CHAT]
+      parameters:
+        - name: roomId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 모든 채팅 로그 조회 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  status:
+                    type: integer
+                    default: 200
+                  message:
+                    type: string
+                    default: success loading chat logs
+                  datas:
+                    type: object 

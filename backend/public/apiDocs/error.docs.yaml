@@ -1,0 +1,26 @@
+tags:
+  name: ERROR
+  description: 에러 발생 API
+
+paths:
+  /error:
+    get:
+      summary: 500번 에러 발생
+      tags: [ERROR]
+      responses:
+        '500':
+          description: 500번 에러
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  status:
+                    type: integer
+                    default: 500
+                  message:
+                    type: string
+                    default: 에러가 발생했습니다  status 500"

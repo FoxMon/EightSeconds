@@ -1,0 +1,34 @@
+tags:
+  name: DATA
+  description: 데이터 분석 API
+
+paths:
+  /data/{dataName}:
+    get:
+      summary: 모든 채팅 로그 조회
+      tags: [DATA]
+      parameters:
+        - name: dataName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 모든 채팅 로그 조회 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  status:
+                    type: integer
+                    default: 200
+                  message:
+                    type: string
+                    default: data load success
+                  datas:
+                    type: object
